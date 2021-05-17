@@ -1,0 +1,358 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище Hardick" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Computers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="DeviceIP" Type="nchar" MaxLength="15" Nullable="false" />
+          <Property Name="Motherboard" Type="nchar" MaxLength="20" Nullable="false" />
+          <Property Name="GPU" Type="nchar" MaxLength="20" Nullable="false" />
+          <Property Name="CPU" Type="nchar" MaxLength="20" Nullable="false" />
+          <Property Name="Monitor" Type="nchar" MaxLength="20" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Configurations">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="DeviceIP" Type="nchar" MaxLength="20" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CPUkey" Type="int" />
+          <Property Name="GPUkey" Type="int" />
+          <Property Name="MONITORkey" Type="int" />
+        </EntityType>
+        <EntityType Name="CPUs">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Name" Type="nchar" MaxLength="20" Nullable="false" />
+          <Property Name="Socket" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Price" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="power" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="GPUs">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Name" Type="nchar" MaxLength="20" />
+          <Property Name="Power" Type="nchar" MaxLength="10" />
+          <Property Name="Price" Type="int" />
+          <Property Name="VGA" Type="nchar" MaxLength="10" />
+          <Property Name="HDMI" Type="nchar" MaxLength="10" />
+          <Property Name="DisplayPort" Type="nchar" MaxLength="10" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Monitors">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Name" Type="nchar" MaxLength="20" Nullable="false" />
+          <Property Name="VGA" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="HDMI" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="DisplayPort" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Price" Type="int" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Motherboards">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Name" Type="nchar" MaxLength="20" Nullable="false" />
+          <Property Name="Power" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Socket" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Price" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Configura__CPUke__60A75C0F">
+          <End Role="CPUs" Type="Self.CPUs" Multiplicity="0..1" />
+          <End Role="Configurations" Type="Self.Configurations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CPUs">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Configurations">
+              <PropertyRef Name="CPUkey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Configura__GPUke__619B8048">
+          <End Role="GPUs" Type="Self.GPUs" Multiplicity="0..1" />
+          <End Role="Configurations" Type="Self.Configurations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GPUs">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Configurations">
+              <PropertyRef Name="GPUkey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Configura__MONIT__628FA481">
+          <End Role="Monitors" Type="Self.Monitors" Multiplicity="0..1" />
+          <End Role="Configurations" Type="Self.Configurations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Monitors">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Configurations">
+              <PropertyRef Name="MONITORkey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище HardickContainer">
+          <EntitySet Name="Computers" EntityType="Self.Computers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Configurations" EntityType="Self.Configurations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CPUs" EntityType="Self.CPUs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GPUs" EntityType="Self.GPUs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Monitors" EntityType="Self.Monitors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Motherboards" EntityType="Self.Motherboards" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Configura__CPUke__60A75C0F" Association="Self.FK__Configura__CPUke__60A75C0F">
+            <End Role="CPUs" EntitySet="CPUs" />
+            <End Role="Configurations" EntitySet="Configurations" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Configura__GPUke__619B8048" Association="Self.FK__Configura__GPUke__619B8048">
+            <End Role="GPUs" EntitySet="GPUs" />
+            <End Role="Configurations" EntitySet="Configurations" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Configura__MONIT__628FA481" Association="Self.FK__Configura__MONIT__628FA481">
+            <End Role="Monitors" EntitySet="Monitors" />
+            <End Role="Configurations" EntitySet="Configurations" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Hardick" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Computers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="DeviceIP" Type="String" MaxLength="15" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Motherboard" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="GPU" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="CPU" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Monitor" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="Configurations">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="DeviceIP" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CPUkey" Type="Int32" />
+          <Property Name="GPUkey" Type="Int32" />
+          <Property Name="MONITORkey" Type="Int32" />
+          <NavigationProperty Name="CPUs" Relationship="Self.FK__Configura__CPUke__60A75C0F" FromRole="Configurations" ToRole="CPUs" />
+          <NavigationProperty Name="GPUs" Relationship="Self.FK__Configura__GPUke__619B8048" FromRole="Configurations" ToRole="GPUs" />
+          <NavigationProperty Name="Monitors" Relationship="Self.FK__Configura__MONIT__628FA481" FromRole="Configurations" ToRole="Monitors" />
+        </EntityType>
+        <EntityType Name="CPUs">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Name" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Socket" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Price" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="power" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Configurations" Relationship="Self.FK__Configura__CPUke__60A75C0F" FromRole="CPUs" ToRole="Configurations" />
+        </EntityType>
+        <EntityType Name="GPUs">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Name" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="Power" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Price" Type="Int32" />
+          <Property Name="VGA" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="HDMI" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="DisplayPort" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Configurations" Relationship="Self.FK__Configura__GPUke__619B8048" FromRole="GPUs" ToRole="Configurations" />
+        </EntityType>
+        <EntityType Name="Monitors">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Name" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="VGA" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="HDMI" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="DisplayPort" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Price" Type="Int32" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Configurations" Relationship="Self.FK__Configura__MONIT__628FA481" FromRole="Monitors" ToRole="Configurations" />
+        </EntityType>
+        <EntityType Name="Motherboards">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Name" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Power" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Socket" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Price" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <Association Name="FK__Configura__CPUke__60A75C0F">
+          <End Role="CPUs" Type="Self.CPUs" Multiplicity="0..1" />
+          <End Role="Configurations" Type="Self.Configurations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CPUs">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Configurations">
+              <PropertyRef Name="CPUkey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Configura__GPUke__619B8048">
+          <End Role="GPUs" Type="Self.GPUs" Multiplicity="0..1" />
+          <End Role="Configurations" Type="Self.Configurations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GPUs">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Configurations">
+              <PropertyRef Name="GPUkey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Configura__MONIT__628FA481">
+          <End Role="Monitors" Type="Self.Monitors" Multiplicity="0..1" />
+          <End Role="Configurations" Type="Self.Configurations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Monitors">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Configurations">
+              <PropertyRef Name="MONITORkey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Hardlife" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Computers" EntityType="Self.Computers" />
+          <EntitySet Name="Configurations" EntityType="Self.Configurations" />
+          <EntitySet Name="CPUs" EntityType="Self.CPUs" />
+          <EntitySet Name="GPUs" EntityType="Self.GPUs" />
+          <EntitySet Name="Monitors" EntityType="Self.Monitors" />
+          <EntitySet Name="Motherboards" EntityType="Self.Motherboards" />
+          <AssociationSet Name="FK__Configura__CPUke__60A75C0F" Association="Self.FK__Configura__CPUke__60A75C0F">
+            <End Role="CPUs" EntitySet="CPUs" />
+            <End Role="Configurations" EntitySet="Configurations" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Configura__GPUke__619B8048" Association="Self.FK__Configura__GPUke__619B8048">
+            <End Role="GPUs" EntitySet="GPUs" />
+            <End Role="Configurations" EntitySet="Configurations" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Configura__MONIT__628FA481" Association="Self.FK__Configura__MONIT__628FA481">
+            <End Role="Monitors" EntitySet="Monitors" />
+            <End Role="Configurations" EntitySet="Configurations" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище HardickContainer" CdmEntityContainer="Hardlife">
+          <EntitySetMapping Name="Computers">
+            <EntityTypeMapping TypeName="Hardick.Computers">
+              <MappingFragment StoreEntitySet="Computers">
+                <ScalarProperty Name="DeviceIP" ColumnName="DeviceIP" />
+                <ScalarProperty Name="Motherboard" ColumnName="Motherboard" />
+                <ScalarProperty Name="GPU" ColumnName="GPU" />
+                <ScalarProperty Name="CPU" ColumnName="CPU" />
+                <ScalarProperty Name="Monitor" ColumnName="Monitor" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Configurations">
+            <EntityTypeMapping TypeName="Hardick.Configurations">
+              <MappingFragment StoreEntitySet="Configurations">
+                <ScalarProperty Name="DeviceIP" ColumnName="DeviceIP" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CPUkey" ColumnName="CPUkey" />
+                <ScalarProperty Name="GPUkey" ColumnName="GPUkey" />
+                <ScalarProperty Name="MONITORkey" ColumnName="MONITORkey" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CPUs">
+            <EntityTypeMapping TypeName="Hardick.CPUs">
+              <MappingFragment StoreEntitySet="CPUs">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Socket" ColumnName="Socket" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="power" ColumnName="power" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GPUs">
+            <EntityTypeMapping TypeName="Hardick.GPUs">
+              <MappingFragment StoreEntitySet="GPUs">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Power" ColumnName="Power" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="VGA" ColumnName="VGA" />
+                <ScalarProperty Name="HDMI" ColumnName="HDMI" />
+                <ScalarProperty Name="DisplayPort" ColumnName="DisplayPort" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Monitors">
+            <EntityTypeMapping TypeName="Hardick.Monitors">
+              <MappingFragment StoreEntitySet="Monitors">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="VGA" ColumnName="VGA" />
+                <ScalarProperty Name="HDMI" ColumnName="HDMI" />
+                <ScalarProperty Name="DisplayPort" ColumnName="DisplayPort" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Motherboards">
+            <EntityTypeMapping TypeName="Hardick.Motherboards">
+              <MappingFragment StoreEntitySet="Motherboards">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Power" ColumnName="Power" />
+                <ScalarProperty Name="Socket" ColumnName="Socket" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

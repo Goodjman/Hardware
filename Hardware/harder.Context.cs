@@ -25,11 +25,11 @@ namespace Hardware
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Computers> Computers { get; set; }
-        public virtual DbSet<Configurations> Configurations { get; set; }
-        public virtual DbSet<CPUs> CPUs { get; set; }
-        public virtual DbSet<GPUs> GPUs { get; set; }
-        public virtual DbSet<Monitors> Monitors { get; set; }
-        public virtual DbSet<Motherboards> Motherboards { get; set; }
+        public  DbSet<Computers> Computers { get; set; }
+        public  DbSet<Configurations> Configurations { get; set; }
+        public  DbSet<CPUs> CPUs { get; set; }
+        public  DbSet<GPUs> GPUs { get; set; }
+        public  DbSet<Monitors> Monitors { get; set; }
+        public  DbSet<Motherboards> Motherboards { get; set; }
     }
 }

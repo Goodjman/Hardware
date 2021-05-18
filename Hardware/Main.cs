@@ -15,12 +15,14 @@ namespace Hardware
         public Main()
         {
             InitializeComponent();
+            var page = new DataInput();
+            page.Show();
             Hardlife context = new Hardlife();
-            context.CPUs.Add(new CPUs { Name = "Intel Z490", Socket = "LGA1200", Price = 300, power = "8pin" });
-            context.CPUs.Add(new CPUs { Name = "name", Socket = "socket", Price = 123 });
-            /// ...
-            context.CPUs.Add(new CPUs { Name = "name", Socket = "socket", Price = 123 });
-            context.SaveChanges();
+            //context.CPUs.Add(new CPUs { Name = "Intel Z490", Socket = "LGA1200", Price = 300, power = "8pin" });
+            //context.CPUs.Add(new CPUs { Name = "name", Socket = "socket", Price = 123 });
+            ///// ...
+            //context.CPUs.Add(new CPUs { Name = "name", Socket = "socket", Price = 123 });
+            //context.SaveChanges();
 
            // dataGridView3.Rows.Add("Intel Z490", "8pin", "LGA1200", 300);
            // dataGridView3.Rows.Add("AMD B550", "6pin", "AM4", 200);
